@@ -1,9 +1,6 @@
 const express = require('express')
 const mongoose = require('mongoose')
 
-const index = require('./routes/index')
-const shorto = require('./routes/shorto')
-
 const app = express()
 
 // Connecting to mongo
@@ -12,7 +9,12 @@ mongoose
   .then(_ => console.log('MongoDB connected.'))
   .catch(err => console.log(err))
 
+// Loading Models
+require('./models/Url')
+
 // Adding route
+const index = require('./routes/index')
+const shorto = require('./routes/shorto')
 app.use(index())
 app.use(shorto())
 
