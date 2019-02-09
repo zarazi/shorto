@@ -31,11 +31,12 @@ module.exports = (router = new Router()) => {
       const newUrl = {
         originalUrl,
         shortId: 'PPBqWA9',
-        alias
+        ...(!!alias && { alias })
       }
-      // TODO: save data to db
-      res.status(200).json(newUrl)
-      // TODO: render shorten url
+      new Url(newUrl).save().then(url => {
+        res.status(200).json(newUrl)
+        // TODO: render shorten url
+      })
     }
   })
 
