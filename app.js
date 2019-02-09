@@ -1,7 +1,8 @@
-const express = require('express')
 const mongoose = require('mongoose')
-
-const app = express()
+const express = require('express')
+const exphbs = require('express-handlebars')
+const index = require('./routes/index')
+const shorto = require('./routes/shorto')
 
 // Connecting to mongo
 mongoose
@@ -9,12 +10,14 @@ mongoose
   .then(_ => console.log('MongoDB connected.'))
   .catch(err => console.log(err))
 
-// Loading Models
-require('./models/Url')
+// Create express app
+const app = express()
 
-// Adding route
-const index = require('./routes/index')
-const shorto = require('./routes/shorto')
+// Handlebars Middleware
+app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
+app.set('view engine', 'handlebars')
+
+// Adding routes
 app.use(index())
 app.use(shorto())
 
