@@ -1,14 +1,14 @@
 const express = require('express')
+const index = require('./routes/index')
 
 const app = express()
 
-// Index route
-app.get('/', (req, res) => {
-  res.send('Shorto ready!')
-})
+// Adding route
+app.use(index())
 
-const PORT = 5000
-
+// Starting server
+const PORT = process.env.PORT ||  5000
 app.listen(PORT, () => {
   console.log(`Listening on :${PORT}`)
 })
+
