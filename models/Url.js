@@ -3,7 +3,7 @@ const Schema = mongoose.Schema
 
 // Create Schema
 const UrlSchema = new Schema({
-  fullUrl: {
+  originalUrl: {
     type: String,
     required: true
   },

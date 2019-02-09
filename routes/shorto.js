@@ -14,19 +14,28 @@ module.exports = (router = new Router()) => {
     let errors = []
 
     const { body = {} } = req
-    const { originalUrl, shortName } = body
+    const { originalUrl, alias } = body
     if (!originalUrl) {
       errors.push({ text: 'Please add original url' })
     }
+    // TODO: validate valid url
+    // TODO: validate alias
 
     if (errors.length > 0) {
       res.render('index', {
         errors,
         originalUrl,
-        shortName
+        alias
       })
     } else {
-      res.send('ok')
+      const newUrl = {
+        originalUrl,
+        shortId: 'PPBqWA9',
+        alias
+      }
+      // TODO: save data to db
+      res.status(200).json(newUrl)
+      // TODO: render shorten url
     }
   })
 
