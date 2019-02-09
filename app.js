@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 const express = require('express')
 const exphbs = require('express-handlebars')
+const bodyParser = require('body-parser')
 const index = require('./routes/index')
 const shorto = require('./routes/shorto')
 
@@ -16,6 +17,10 @@ const app = express()
 // Handlebars Middleware
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
 app.set('view engine', 'handlebars')
+
+// Body Parser Middleware
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
 
 // Adding routes
 app.use(index())

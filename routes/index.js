@@ -2,8 +2,7 @@ const { Router } = require('express')
 
 module.exports = (router = new Router()) => {
   router.get('/', (req, res) => {
-    const title = 'Shorto!'
-    res.render('index', { title })
+    res.render('index')
   })
 
   return router

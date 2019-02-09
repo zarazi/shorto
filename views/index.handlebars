@@ -1,17 +1,22 @@
 <div class="jumbotron text-center">
-  <h1 class="display-3">{{ title }}</h1>
+  <h1 class="display-3">SHORTO!</h1>
   <p class="lead">Shortening any URL</p>
 </div>
+
+{{#each errors}}
+<div class="alert alert-danger">{{text}}</div>
+{{else}}
+{{/each}}
 
 <div class="card card-body">
   <form action="/shorto" method="POST">
     <div class="form-group">
       <label for="originalUrl">Original Url</label>
-      <input type="text" class="form-control" name="originalUrl" placeholder="Enter your url here">
+      <input type="text" class="form-control" name="originalUrl" placeholder="Enter your url here" value="{{originalUrl}}">
     </div>
     <div class="form-group">
-      <label for="shortenName">Shorten Name</label>
-      <input type="text" class="form-control" name="shortenName" placeholder="Leave this blank for auto generation">
+      <label for="shortName">Custom Short Name</label>
+      <input type="text" class="form-control" name="shortName" placeholder="Leave this blank for random generation"  value="{{shortName}}">
     </div>
     <button type="submit" class="btn btn-primary">Shorto!</button>
   </form>
