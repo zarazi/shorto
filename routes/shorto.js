@@ -1,7 +1,5 @@
-const mongoose = require('mongoose')
-const Url = require('../models/Url')
-
 const { Router } = require('express')
+const Url = require('../models/Url')
 
 module.exports = (router = new Router()) => {
   router.get('/shorto', (req, res) => {

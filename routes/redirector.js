@@ -1,6 +1,5 @@
 const { Router } = require('express')
 const Url = require('../models/Url')
-const { promisify } = require('util')
 
 module.exports = (router = new Router()) => {
   router.get('/:shortId', async (req, res) => {
