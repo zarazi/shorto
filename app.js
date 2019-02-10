@@ -4,6 +4,7 @@ const exphbs = require('express-handlebars')
 const bodyParser = require('body-parser')
 const index = require('./routes/index')
 const shorto = require('./routes/shorto')
+const redirector = require('./routes/redirector')
 
 // Connecting to mongo
 mongoose
@@ -25,6 +26,7 @@ app.use(bodyParser.json())
 // Adding routes
 app.use(index())
 app.use(shorto())
+app.use(redirector())
 
 // Starting server
 const PORT = process.env.PORT || 5000

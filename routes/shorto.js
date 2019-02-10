@@ -34,9 +34,25 @@ module.exports = (router = new Router()) => {
         ...(!!alias && { alias })
       }
       new Url(newUrl).save().then(url => {
-        res.status(200).json(newUrl)
-        // TODO: render shorten url
+        res.redirect(`/shorto/${url.shortId}`)
       })
+    }
+  })
+
+  router.get('/shorto/:shortId', async (req, res) => {
+    const { shortId } = req.params
+    const url = await Url.findOne({ shortId })
+    if (url) {
+      const { originalUrl } = url
+      const shortUrl = `http://localhost/${shortId}`
+      const data = {
+        originalUrl,
+        shortUrl
+      }
+      console.log(data)
+      res.render('shorto', data)
+    } else {
+      res.status(403).send('Short url not found')
     }
   })
 
