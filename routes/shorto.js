@@ -10,7 +10,7 @@ module.exports = (router = new Router()) => {
     })
   })
 
-  router.post('/shorto', (req, res) => {
+  router.post('/shorto', async (req, res) => {
     let errors = []
 
     const { body = {} } = req
@@ -18,6 +18,7 @@ module.exports = (router = new Router()) => {
     if (!originalUrl) {
       errors.push({ text: 'Please add original url' })
     }
+
     // TODO: validate valid url
     // TODO: validate alias
 
@@ -28,14 +29,19 @@ module.exports = (router = new Router()) => {
         alias
       })
     } else {
-      const newUrl = {
-        originalUrl,
-        shortId: generateShortId(),
-        ...(!!alias && { alias })
+      const oldUrl = await Url.findOne({ originalUrl })
+      let { shortId } = oldUrl || {}
+      if (!shortId) {
+        shortId = generateShortId()
+        const newUrl = new Url({
+          originalUrl,
+          shortId,
+          ...(!!alias && { alias })
+        })
+        await newUrl.save()
       }
-      new Url(newUrl).save().then(url => {
-        res.redirect(`/shorto/${url.shortId}`)
-      })
+      const shortUrl = `/shorto/${shortId}`
+      res.redirect(shortUrl)
     }
   })
 
