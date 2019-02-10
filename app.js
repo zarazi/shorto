@@ -5,6 +5,7 @@ const bodyParser = require('body-parser')
 const index = require('./routes/index')
 const shorto = require('./routes/shorto')
 const redirector = require('./routes/redirector')
+const { PORT } = require('./config')
 
 // Connecting to mongo
 mongoose
@@ -29,7 +30,6 @@ app.use(shorto())
 app.use(redirector())
 
 // Starting server
-const PORT = process.env.PORT || 5000
 app.listen(PORT, () => {
   console.log(`Listening on :${PORT}`)
 })
