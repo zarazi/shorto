@@ -1,5 +1,6 @@
 const { Router } = require('express')
 const Url = require('../models/Url')
+const { generateShortId } = require('../lib/helpers')
 
 module.exports = (router = new Router()) => {
   router.get('/shorto', (req, res) => {
@@ -28,7 +29,7 @@ module.exports = (router = new Router()) => {
     } else {
       const newUrl = {
         originalUrl,
-        shortId: 'PPBqWA9',
+        shortId: generateShortId(),
         ...(!!alias && { alias })
       }
       new Url(newUrl).save().then(url => {
