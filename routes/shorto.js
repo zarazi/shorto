@@ -2,6 +2,7 @@ const { Router } = require('express')
 const Url = require('../models/Url')
 const { generateShortId, absoluteUrl } = require('../lib/helpers')
 const { BASEURL, PORT } = require('../config')
+const validUrl = require("valid-url")
 
 module.exports = (router = new Router()) => {
   router.get('/shorto', (req, res) => {
@@ -15,12 +16,24 @@ module.exports = (router = new Router()) => {
 
     const { body = {} } = req
     const { originalUrl, alias } = body
+
+    // Validate originalUrl presence
     if (!originalUrl) {
       errors.push({ text: 'Please add original url' })
     }
 
-    // TODO: validate valid url
-    // TODO: validate alias
+    // Validate originalUrl format
+    if (!validUrl.isUri(originalUrl)) {
+      errors.push({ text: 'Original url is invalid' })
+    }
+
+    // Validate alias format
+    if (alias && !/^[0-9a-zA-Z]+$/.test(alias)) {
+      errors.push({ text: 'Alias should contains only alphanumeric' })
+    }
+    if (alias && (alias.length < 3 || alias.length > 10)) {
+      errors.push({ text: 'Alias should be 3 to 10 characters' })
+    }
 
     if (errors.length > 0) {
       res.render('index', {
