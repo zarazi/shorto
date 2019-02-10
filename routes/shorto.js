@@ -1,6 +1,7 @@
 const { Router } = require('express')
 const Url = require('../models/Url')
-const { generateShortId } = require('../lib/helpers')
+const { generateShortId, absoluteUrl } = require('../lib/helpers')
+const { BASEURL, PORT } = require('../config')
 
 module.exports = (router = new Router()) => {
   router.get('/shorto', (req, res) => {
@@ -43,12 +44,11 @@ module.exports = (router = new Router()) => {
     const url = await Url.findOne({ shortId })
     if (url) {
       const { originalUrl } = url
-      const shortUrl = `http://localhost/${shortId}`
+      const shortUrl = absoluteUrl(BASEURL, null, shortId)
       const data = {
         originalUrl,
         shortUrl
       }
-      console.log(data)
       res.render('shorto', data)
     } else {
       res.status(403).send('Short url not found')
