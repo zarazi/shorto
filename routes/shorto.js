@@ -2,7 +2,7 @@ const { Router } = require('express')
 const Url = require('../models/Url')
 const { generateShortId, absoluteUrl } = require('../lib/helpers')
 const { SHORTO_BASEURL, API_BASEURL, PORT } = require('../config')
-const validUrl = require('valid-url')
+const validator = require('validator')
 const axios = require('axios')
 
 module.exports = (router = new Router()) => {
@@ -15,11 +15,11 @@ module.exports = (router = new Router()) => {
     // Validate originalUrl presence
     if (!originalUrl) {
       errors.push({ text: 'Please add original url' })
-    }
-
-    // Validate originalUrl format
-    if (!validUrl.isUri(originalUrl)) {
-      errors.push({ text: 'Original url is invalid' })
+    } else {
+      // Validate originalUrl format
+      if (!validator.isURL(originalUrl, { require_protocol: true })) {
+        errors.push({ text: 'Original url is invalid' })
+      }
     }
 
     // Validate alias format
@@ -69,6 +69,8 @@ module.exports = (router = new Router()) => {
           await Url.findOneAndUpdate({ originalUrl }, { alias }, { runValidators: true })
         }
       }
+
+      // Showing generated one
       const shortUrl = `/shorto/${shortId}`
       res.redirect(shortUrl)
     }
