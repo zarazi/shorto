@@ -11,7 +11,8 @@ const { PORT } = require('./config')
 mongoose
   .connect('mongodb://localhost/shorto-dev', { 
     useNewUrlParser: true,
-    useFindAndModify: false
+    useFindAndModify: false,
+    useCreateIndex: true
   })
   .then(_ => console.log('MongoDB connected.'))
   .catch(err => console.log(err))

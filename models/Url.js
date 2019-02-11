@@ -5,14 +5,17 @@ const Schema = mongoose.Schema
 const UrlSchema = new Schema({
   originalUrl: {
     type: String,
-    required: true
+    required: true,
+    index: true
   },
   shortId: {
     type: String,
-    required: true
+    required: true,
+    index: true
   },
   alias: {
-    type: String
+    type: String,
+    index: true
   },
   dateCreated: {
     type: Date,
