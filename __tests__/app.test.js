@@ -20,7 +20,7 @@ describe('All endpoints', () => {
     })
   })
 
-  describe('GET /shorto', () => {
+  describe.skip('GET /shorto', () => {
     test('should return JSON', done => {
       const app = initApp(shorto)
       request(app)
