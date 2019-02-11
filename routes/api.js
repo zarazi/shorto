@@ -1,9 +1,9 @@
 const { Router } = require('express')
-const shortid = require('shortid')
+const { generateShortId } = require('../lib/helpers')
 
 module.exports = (router = new Router()) => {
   router.get('/api/new-id', (req, res) => {
-    const id = shortid.generate()
+    const id = generateShortId()
     res.status(200).send({ id })
   })
 
