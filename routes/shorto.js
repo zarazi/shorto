@@ -1,5 +1,3 @@
-require('dotenv').config()
-
 const { Router } = require('express')
 const Url = require('../models/Url')
 const { generateShortId, absoluteUrl } = require('../lib/helpers')
