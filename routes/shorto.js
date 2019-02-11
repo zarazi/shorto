@@ -42,6 +42,12 @@ module.exports = (router = new Router()) => {
       errors.push({ text: 'Alias has already been used' })
     }
 
+    // Validate prefer alias on existing url
+    const oldUrl = await Url.findOne({ originalUrl })
+    if (oldUrl && alias) {
+      errors.push({ text: 'Can\'t set alias on existing url' })
+    }
+
     // Re-render form with errors
     if (errors.length > 0) {
       res.render('index', {
@@ -51,11 +57,12 @@ module.exports = (router = new Router()) => {
       })
     } else {
       // Process input
-      const oldUrl = await Url.findOne({ originalUrl })
       let { shortId } = oldUrl || {}
 
       // originalUrl is a new one
       if (!oldUrl) {
+
+        // Create new url
         shortId = generateShortId()
         const newUrl = new Url({
           originalUrl,
