@@ -5,13 +5,6 @@ const { BASEURL, PORT } = require('../config')
 const validUrl = require('valid-url')
 
 module.exports = (router = new Router()) => {
-  // TODO: remove this
-  router.get('/shorto', (req, res) => {
-    res.status(200).json({
-      shortUrl: '1234'
-    })
-  })
-
   router.post('/shorto', async (req, res) => {
     let errors = []
 
