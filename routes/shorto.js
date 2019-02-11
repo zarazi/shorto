@@ -79,8 +79,8 @@ module.exports = (router = new Router()) => {
     const { shortId } = req.params
     const url = await Url.findOne({ shortId })
     if (url) {
-      const { originalUrl } = url
-      const shortUrl = absoluteUrl(BASEURL, null, shortId)
+      const { originalUrl, alias } = url
+      const shortUrl = absoluteUrl(BASEURL, null, alias || shortId)
       const data = {
         originalUrl,
         shortUrl
