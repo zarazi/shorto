@@ -6,11 +6,11 @@ const index = require('./routes/index')
 const shorto = require('./routes/shorto')
 const redirector = require('./routes/redirector')
 const api = require('./routes/api')
-const { PORT } = require('./config')
+const { PORT, MONGO_URL } = require('./config')
 
 // Connecting to mongo
 mongoose
-  .connect('mongodb://localhost/shorto-dev', { 
+  .connect(MONGO_URL, {
     useNewUrlParser: true,
     useFindAndModify: false,
     useCreateIndex: true
