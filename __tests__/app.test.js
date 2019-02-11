@@ -9,7 +9,7 @@ const initApp = router => {
   app.use(router())
   return app
 }
-describe('All endpoints', () => {
+describe('App endpoints', () => {
   describe.skip('GET /', () => {
     test('should response with Shorto!', done => {
       const app = initApp(index)
