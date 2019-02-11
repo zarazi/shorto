@@ -2,9 +2,10 @@ const { Router } = require('express')
 const Url = require('../models/Url')
 const { generateShortId, absoluteUrl } = require('../lib/helpers')
 const { BASEURL, PORT } = require('../config')
-const validUrl = require("valid-url")
+const validUrl = require('valid-url')
 
 module.exports = (router = new Router()) => {
+  // TODO: remove this
   router.get('/shorto', (req, res) => {
     res.status(200).json({
       shortUrl: '1234'
@@ -35,6 +36,13 @@ module.exports = (router = new Router()) => {
       errors.push({ text: 'Alias should be 3 to 10 characters' })
     }
 
+    // Validate alias usage
+    const oldUrlWithNewAlias = await Url.findOne({ alias })
+    if (oldUrlWithNewAlias) {
+      errors.push({ text: 'Alias has already been used' })
+    }
+
+    // Re-render form with errors
     if (errors.length > 0) {
       res.render('index', {
         errors,
@@ -42,9 +50,12 @@ module.exports = (router = new Router()) => {
         alias
       })
     } else {
+      // Process input
       const oldUrl = await Url.findOne({ originalUrl })
       let { shortId } = oldUrl || {}
-      if (!shortId) {
+
+      // originalUrl is a new one
+      if (!oldUrl) {
         shortId = generateShortId()
         const newUrl = new Url({
           originalUrl,
