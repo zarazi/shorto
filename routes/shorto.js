@@ -3,6 +3,7 @@ const Url = require('../models/Url')
 const { generateShortId, absoluteUrl } = require('../lib/helpers')
 const { BASEURL, PORT } = require('../config')
 const validUrl = require('valid-url')
+const axios = require('axios')
 
 module.exports = (router = new Router()) => {
   router.post('/shorto', async (req, res) => {
@@ -49,8 +50,13 @@ module.exports = (router = new Router()) => {
 
       // originalUrl is a new one
       if (!oldUrl) {
+        // Create shortId
+        const newIdUrl = absoluteUrl(BASEURL, null, '/api/new-id')
+        const { data } = await axios.get(newIdUrl)
+        const { id } = data
+        shortId = id
+
         // Create new url
-        shortId = generateShortId()
         const newUrl = new Url({
           originalUrl,
           shortId,
