@@ -5,6 +5,7 @@ const bodyParser = require('body-parser')
 const index = require('./routes/index')
 const shorto = require('./routes/shorto')
 const redirector = require('./routes/redirector')
+const api = require('./routes/api')
 const { PORT } = require('./config')
 
 // Connecting to mongo
@@ -32,6 +33,7 @@ app.use(bodyParser.json())
 app.use(index())
 app.use(shorto())
 app.use(redirector())
+app.use(api())
 
 // Starting server
 app.listen(PORT, () => {
