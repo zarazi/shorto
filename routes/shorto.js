@@ -1,7 +1,9 @@
+require('dotenv').config()
+
 const { Router } = require('express')
 const Url = require('../models/Url')
 const { generateShortId, absoluteUrl } = require('../lib/helpers')
-const { BASEURL, PORT } = require('../config')
+const { SHORTO_BASEURL, API_BASEURL, PORT } = require('../config')
 const validUrl = require('valid-url')
 const axios = require('axios')
 
@@ -51,7 +53,7 @@ module.exports = (router = new Router()) => {
       // originalUrl is a new one
       if (!oldUrl) {
         // Create shortId
-        const newIdUrl = absoluteUrl(BASEURL, null, '/api/new-id')
+        const newIdUrl = absoluteUrl(API_BASEURL, null, '/api/new-id')
         const { data } = await axios.get(newIdUrl)
         const { id } = data
         shortId = id
@@ -79,7 +81,7 @@ module.exports = (router = new Router()) => {
     const url = await Url.findOne({ shortId })
     if (url) {
       const { originalUrl, alias } = url
-      const shortUrl = absoluteUrl(BASEURL, null, alias || shortId)
+      const shortUrl = absoluteUrl(SHORTO_BASEURL, null, alias || shortId)
       const data = {
         originalUrl,
         shortUrl
