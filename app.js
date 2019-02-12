@@ -37,6 +37,12 @@ app.use(shorto())
 app.use(redirector())
 app.use(api())
 
+// Error Handler Middleware
+app.use((error, req, res, next) => {
+  res.status(500)
+  res.send(error.message) // TODO: render better view
+})
+
 // Starting server
 app.listen(PORT, () => {
   console.log(`Listening on :${PORT}`)

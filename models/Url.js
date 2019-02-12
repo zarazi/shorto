@@ -23,6 +23,18 @@ const UrlSchema = new Schema({
   }
 })
 
+// UrlSchema.pre('findOne', next => {
+//   next(new Error('Mongo - pre findOne error'))
+// })
+
+// UrlSchema.pre('findOneAndUpdate', next => {
+//   next(new Error('Mongo - pre findOneAndUpdate error'))
+// })
+
+// UrlSchema.pre('save', next => {
+//   next(new Error('Mongo - pre save error'))
+// })
+
 const Url = mongoose.model('urls', UrlSchema)
 
 module.exports = Url
