@@ -18,7 +18,7 @@ mongoose
     useCreateIndex: true
   })
   .then(_ => console.log('MongoDB connected.'))
-  .catch(err => console.log(err))
+  .catch(err => console.log(err.message))
 
 // Create express app
 const app = express()
