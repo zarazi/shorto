@@ -1,5 +1,5 @@
 # shorto
-URL shortening app v0.2.0
+URL shortening app v0.2.1
 
 ## Mimimum Requirement
 - Node.js 8+
