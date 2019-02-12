@@ -38,5 +38,7 @@ describe('API endpoints', () => {
       const res = await request(app).get('/api/new-id')
       expect(shortid.generate).toHaveBeenCalledTimes(1)
     })
+
+    // TODO: adding negative tests
   })
 })

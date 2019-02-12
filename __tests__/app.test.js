@@ -10,6 +10,8 @@ const initApp = router => {
   return app
 }
 describe('App endpoints', () => {
+
+  // TODO: fix rendering test
   describe.skip('GET /', () => {
     test('should response with Shorto!', done => {
       const app = initApp(index)
@@ -20,6 +22,7 @@ describe('App endpoints', () => {
     })
   })
 
+  // TODO: fix rendering test
   describe.skip('GET /shorto', () => {
     test('should return JSON', done => {
       const app = initApp(shorto)
