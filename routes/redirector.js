@@ -18,7 +18,7 @@ module.exports = (router = new Router()) => {
         const { originalUrl } = url
         res.redirect(originalUrl)
       } else {
-        res.status(403).send('Short url not found')
+        res.status(403).send('Short url not found') // TODO: render error page
       }
     })
   )

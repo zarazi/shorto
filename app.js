@@ -40,7 +40,7 @@ app.use(api())
 // Error Handler Middleware
 app.use((error, req, res, next) => {
   res.status(500)
-  res.send(error.message) // TODO: render better view
+  res.send(error.message) // TODO: render error page
 })
 
 // Starting server

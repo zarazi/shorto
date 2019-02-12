@@ -97,7 +97,7 @@ module.exports = (router = new Router()) => {
         }
         res.render('shorto', data)
       } else {
-        res.status(403).send('Short url not found')
+        res.status(403).send('Short url not found') // TODO: render error page
       }
     })
   )
