@@ -4,8 +4,11 @@ describe('Validation Tests', () => {
   describe('#validateOriginalUrl', () => {
     describe('- negative cases:', () => {
       ;[
-        [undefined, new Error('Undefined originalUrl')],
-        [null, new Error('Undefined originalUrl')]
+        [undefined, new Error('Undefined original url')],
+        [null, new Error('Undefined original url')],
+        ['http', new Error('Original url is invalid')],
+        ['http://', new Error('Original url is invalid')],
+        ['http://abc', new Error('Original url is invalid')]
       ].forEach(([originalUrl, error]) => {
         test(`should throw Error - ${error.message}`, async () => {
           const expected = error
